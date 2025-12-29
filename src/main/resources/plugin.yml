@@ -1,8 +1,8 @@
 name: AntiIllegalRecode
 main: me.tiger.antiIllegalRecode.AntiIllegalRecode
-version: 2.0
+version: 2.1
 api-version: 1.21
-
+author: [2b2t_names]
 commands:
   airecode:
     description: Enable or disable AntiIllegalRecode

@@ -13,13 +13,17 @@ public class InventoryListener implements Listener {
 
     @EventHandler
     public void onInventoryClick(InventoryClickEvent event) {
+        // Plugin must be enabled
         if (!AntiIllegalRecode.getInstance().isPluginEnabled()) return;
 
+        // Only handle player clicks
         if (!(event.getWhoClicked() instanceof Player player)) return;
 
         ItemStack item = event.getCurrentItem();
-        if (item == null) return;
+        // Ignore empty slots
+        if (item == null || item.getType().isAir()) return;
 
+        // Check if the item is illegal
         if (ItemCheck.isIllegal(item)) {
             ActionHandler.handle(player, item);
         }
