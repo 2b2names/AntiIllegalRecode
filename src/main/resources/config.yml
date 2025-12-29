@@ -1,0 +1,9 @@
+checks:
+  stack-size: true
+  enchant-levels: true
+  illegal-blocks: true
+
+actions:
+  remove-item: true
+  notify-player: true
+  log-console: true
