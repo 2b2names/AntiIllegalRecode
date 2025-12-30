@@ -15,7 +15,7 @@ public final class AntiIllegalRecode extends JavaPlugin {
     public void onEnable() {
         instance = this;
 
-        webhook = new DiscordWebhook("https://discord.com/api/webhooks/1455266012017594401/59yiLM_BgQPtp7aomoOdj8okr-umlRIocZGsN16vwDPl_vF5JUNTJaA0604mTMJTuxKi"); // replace with your webhook
+        webhook = new DiscordWebhook(":/"); 
 
         getServer().getPluginManager().registerEvents(new InventoryListener(), this);
         getCommand("airecode").setExecutor(new ToggleCommand());
