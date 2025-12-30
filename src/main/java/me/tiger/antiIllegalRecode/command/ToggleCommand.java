@@ -4,37 +4,32 @@ import me.tiger.antiIllegalRecode.AntiIllegalRecode;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
-import org.bukkit.entity.Player;
 
 public class ToggleCommand implements CommandExecutor {
 
     @Override
-    public boolean onCommand(CommandSender sender, Command command, String label, String[] args) {
-        if (!(sender instanceof Player player)) {
-            sender.sendMessage("Only players can use this command!");
-            return true;
-        }
+    public boolean onCommand(CommandSender sender, Command cmd, String label, String[] args) {
 
-        if (!player.isOp()) {
-            player.sendMessage("§cOnly OPs can use this command!");
+        if (!sender.isOp()) {
+            sender.sendMessage("§cOP only.");
             return true;
         }
 
         if (args.length != 1) {
-            player.sendMessage("§eUsage: /airecode <enable|disable>");
+            sender.sendMessage("§cUsage: /airecode <enable|disable>");
             return true;
         }
 
-        String arg = args[0].toLowerCase();
-
-        if (arg.equals("enable")) {
+        if (args[0].equalsIgnoreCase("enable")) {
             AntiIllegalRecode.getInstance().setPluginEnabled(true);
-            player.sendMessage("§aAntiIllegalRecode is now ENABLED!");
-        } else if (arg.equals("disable")) {
+            sender.sendMessage("§aAntiIllegalRecode enabled.");
+            return true;
+        }
+
+        if (args[0].equalsIgnoreCase("disable")) {
             AntiIllegalRecode.getInstance().setPluginEnabled(false);
-            player.sendMessage("§cAntiIllegalRecode is now DISABLED!");
-        } else {
-            player.sendMessage("§eUsage: /airecode <enable|disable>");
+            sender.sendMessage("§cAntiIllegalRecode disabled.");
+            return true;
         }
 
         return true;
