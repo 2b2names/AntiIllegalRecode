@@ -1,32 +1,30 @@
 package me.tiger.antiIllegalRecode.check;
 
-import org.bukkit.block.BlockState;
-import org.bukkit.block.ShulkerBox;
-import org.bukkit.inventory.BlockInventoryHolder;
+import org.bukkit.Material;
 import org.bukkit.inventory.ItemStack;
-import org.bukkit.inventory.meta.BlockStateMeta;
+import org.bukkit.enchantments.Enchantment;
 
 public class ItemCheck {
 
     public static boolean isIllegal(ItemStack item) {
-        boolean illegal = false;
 
-        if (StackCheck.isIllegal(item)) illegal = true;
-        if (EnchantCheck.isIllegal(item)) illegal = true;
-        if (BlockCheck.isIllegal(item)) illegal = true;
+        Material type = item.getType();
 
-        // Recursively check shulker box contents
-        if (item.hasItemMeta() && item.getItemMeta() instanceof BlockStateMeta meta) {
-            BlockState state = meta.getBlockState();
-            if (state instanceof BlockInventoryHolder holder) {
-                for (ItemStack nested : holder.getInventory().getContents()) {
-                    if (nested != null && isIllegal(nested)) {
-                        illegal = true;
-                    }
-                }
+        // Unobtainable blocks
+        if (type == Material.BEDROCK ||
+                type == Material.COMMAND_BLOCK ||
+                type == Material.BARRIER ||
+                type == Material.STRUCTURE_BLOCK) {
+            return true;
+        }
+
+        // Over-level enchantments
+        for (var entry : item.getEnchantments().entrySet()) {
+            if (entry.getValue() > entry.getKey().getMaxLevel()) {
+                return true;
             }
         }
 
-        return illegal;
+        return false;
     }
 }
